@@ -18,6 +18,9 @@ for (let i = 0; i < selectedCarBrand.length; i++) {
 
 updateGuessDisplay();
 
+let incorrectGuessCount = 0; 
+const maxIncorrectGuesses = 6;
+
 buttons.forEach(button => {
     button.addEventListener('click', () => {
         const letter = button.textContent;
@@ -30,13 +33,18 @@ buttons.forEach(button => {
             updateGuessDisplay();
             if (!guesses.includes('_')) {
                 showResultMessage(true);
-            }
+            }   
         } else {
-            showResultMessage(false);
+            incorrectGuessCount++;
             updateHangmanImage(); 
+            if (incorrectGuessCount >= maxIncorrectGuesses) { 
+                showResultMessage(false);
+            }
         }
     });
 });
+ 
+
 
 function updateGuessDisplay() {
     guessDisplay.textContent = guesses.join(" ");
